@@ -107,6 +107,9 @@ body {
 }
 
 .pause {
+  width: 40px;
+  height: 40px;
+  background-size: 40px 40px;
   background-image: url("../assets/svg/pause.svg");
 }
 
@@ -262,6 +265,11 @@ body {
 
 .author {
   min-height: 20px;
+}
+li {
+  margin: 10px 0;
+  padding: 0 0;
+  list-style: none;
 }
 
 @media (max-width: 768px) {
