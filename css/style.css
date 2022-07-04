@@ -266,10 +266,16 @@ body {
 .author {
   min-height: 20px;
 }
-li {
+.song {
   margin: 10px 0;
   padding: 0 0;
   list-style: none;
+  cursor: pointer;
+}
+
+.song:hover{
+  color: rgb(243, 175, 28,0.8);
+  transition: 0.35s;
 }
 
 @media (max-width: 768px) {
