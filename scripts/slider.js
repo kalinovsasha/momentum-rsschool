@@ -1,5 +1,5 @@
 slider = {
-  baseUrl:'../assets/img',
+  baseUrl:'./assets/img',
   timeOfDay:["morning","day","evening","night"],
   rnd:1,
 
