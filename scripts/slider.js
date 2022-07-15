@@ -53,6 +53,8 @@ slider = {
   },
 };
 
+
+
 slider.init();
 document
   .querySelector(".slide-prev")
@@ -60,3 +62,5 @@ document
 document
   .querySelector(".slide-next")
   .addEventListener("click", slider.slideNext.bind(slider));
+
+

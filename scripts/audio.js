@@ -28,7 +28,7 @@ const player = {
     //console.log(this.audio.duration);
     //console.log(this.audio.currentTime);
     //console.log(this.audio.ended);
-    
+
     if(!this.isPlayed){
       this.isPlayed=true;
       this.audio.play();
