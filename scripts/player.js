@@ -1,5 +1,9 @@
 playlist = [
   {
+    url: "./assets/sounds/sector.mp3",
+    name: "Сектор Газа",
+  },
+  {
     url: "./assets/sounds/Aqua_Caelestis.mp3",
     name: "Aqua Caelestis",
   },
@@ -14,6 +18,10 @@ playlist = [
   {
     url: "./assets/sounds/SummerWind.mp3",
     name: "Summer Wind",
+  },
+  {
+    url: "./assets/sounds/ghostBC.mp3",
+    name: "ghost BC",
   },
 ];
 
@@ -46,9 +54,9 @@ class Player{
     this.song=new Audio;
     const container=new ElementCreator(this.root,'div',['player']);
     const controls=new ElementCreator(container.element,'div',['player__controls']);
-    const prev=new ElementCreator(controls.element,'div',['player__control', 'prev']);
+    this.prevBtn=new ElementCreator(controls.element,'div',['player__control', 'prev']);
     this.playBtn=new ElementCreator(controls.element,'div',['player__control', 'play']);
-    const next=new ElementCreator(controls.element,'div',['player__control', 'next']);
+    this.nextBtn=new ElementCreator(controls.element,'div',['player__control', 'next']);
     this.volume=new ElementCreator(controls.element,'input',['volume']);
     this.volume.element.setAttribute('type', 'range');
     this.volume.element.setAttribute('id', 'volume');
@@ -58,9 +66,10 @@ class Player{
     this.progressDone=new ElementCreator(this.progressContainer.element,'div',['player__progress__done']);
     const progressDoneCircle=new ElementCreator(this.progressDone.element,'div',['player__progress__circle']);
     this.progressTime=new ElementCreator(container.element,'div',['player__progress__time']);
-    this.progressTime.element.innerText="1"
+    this.progressTime.element.innerText=""
     const songList=new ElementCreator(container.element,'ul',['player__songList']);
     let songs=``;
+    // Отрисовка плейлиста
     for(let i=0;i<this.playlist.length;i++){
       songs+=`<li class="songs song${i}">${this.playlist[i].name}</li>`
     }
@@ -72,6 +81,7 @@ class Player{
         this.curentSong=i;
         this.prevSong=this.curentSong;
         this.song.src=this.playlist[i].url;
+        this.trackName.element.textContent=this.playlist[this.curentSong].name;
         this.song.play();
         this.isPlayed=true;
         this.playBtn.element.classList.remove('play');
@@ -79,10 +89,50 @@ class Player{
       })
     }
 
-
     // Play btn
     this.song.src=playlist[0].url;
     this.playBtn.element.onclick=this.play.bind(this);
+    this.nextBtn.element.onclick=()=>{
+      if(this.curentSong<this.playlist.length-1){
+        this.curentSong++;
+        document.querySelector(`.song${this.prevSong}`).classList.remove("played");
+        document.querySelector(`.song${this.curentSong}`).classList.add("played");
+        this.prevSong=this.curentSong;
+        this.song.src=this.playlist[this.curentSong].url;
+        this.isPlayed=true;
+        this.song.play();
+      }else {
+        this.curentSong=0;
+        document.querySelector(`.song${this.prevSong}`).classList.remove("played");
+        document.querySelector(`.song${this.curentSong}`).classList.add("played");
+        this.prevSong=this.curentSong;
+        this.song.src=this.playlist[this.curentSong].url;
+        this.isPlayed=true;
+        this.song.play();
+      }
+      this.trackName.element.textContent=this.playlist[this.curentSong].name;
+    }
+    this.prevBtn.element.onclick=()=>{
+      if(this.curentSong>0){
+        this.curentSong--;
+        document.querySelector(`.song${this.prevSong}`).classList.remove("played");
+        document.querySelector(`.song${this.curentSong}`).classList.add("played");
+        this.prevSong=this.curentSong;
+        this.song.src=this.playlist[this.curentSong].url;
+        this.isPlayed=true;
+        this.song.play();
+      }else {
+        this.curentSong=this.playlist.length-1;
+        document.querySelector(`.song${this.prevSong}`).classList.remove("played");
+        document.querySelector(`.song${this.curentSong}`).classList.add("played");
+        this.prevSong=this.curentSong;
+        this.song.src=this.playlist[this.curentSong].url;
+        this.isPlayed=true;
+        this.song.play();
+      }
+      this.trackName.element.textContent=this.playlist[this.curentSong].name;
+    }
+
     // Volume
     this.volume.element.value=Math.ceil(this.song.volume*100);
     this.volume.element.addEventListener('change',()=>this.song.volume=this.volume.element.value/100);
@@ -92,15 +142,20 @@ class Player{
     this.trackName.element.textContent=this.playlist[this.curentSong].name;
     // Progress
     this.progressContainer.element.addEventListener('click',(e)=>this.song.currentTime=this.song.duration*e.offsetX/this.progressContainer.element.clientWidth)
-    this.song.addEventListener('timeupdate',()=>this.progressDone.element.style.width=`${this.song.currentTime/this.song.duration*100}%`)
+    this.song.addEventListener('timeupdate',()=>{
+      this.progressDone.element.style.width=`${this.song.currentTime/this.song.duration*100}%`
+      this.progressTime.element.textContent=`${Math.floor(this.song.currentTime/60)}:${Math.floor(this.song.currentTime%60)}/${Math.floor(this.song.duration/60)}:${Math.floor(this.song.duration%60)}`
+    })
   }
-  
+    // 
+
   play(){
     if(!this.isPlayed){
       this.song.play();
       this.isPlayed=true;
       this.playBtn.element.classList.remove('play');
       this.playBtn.element.classList.add('pause');
+      document.querySelector(`.song${this.prevSong}`).classList.remove("played");
       document.querySelector(`.song${this.curentSong}`).classList.add("played");
     }else {
       this.song.pause();
@@ -108,6 +163,7 @@ class Player{
       this.playBtn.element.classList.add('play');
       this.playBtn.element.classList.remove('pause');
     }
+    this.trackName.element.textContent=this.playlist[this.curentSong].name;
   }
   mute(){
     if(!this.isMuted){
@@ -125,6 +181,4 @@ class Player{
   }
 }
 
-
-
-const player = new Player('root',playlist);
+//const player = new Player('root',playlist);

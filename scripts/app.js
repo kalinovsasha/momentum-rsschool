@@ -14,6 +14,7 @@ if (localStorage.getItem("lang")) {
 
 greeting.greeting();
 clock.showTime();
+const player = new Player('player',playlist);
 
 function langChanger(lang) {
   if (lang == "ru") {
