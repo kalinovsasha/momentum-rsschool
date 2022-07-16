@@ -91,7 +91,11 @@ class Player{
 
     // Play btn
     this.song.src=playlist[0].url;
-    this.playBtn.element.onclick=this.play.bind(this);
+    this.playBtn.element.onclick=()=>{
+      document.querySelector(`.song${this.prevSong}`).classList.remove("played");
+      document.querySelector(`.song${this.curentSong}`).classList.add("played");
+      this.play.apply(this);
+    }
     this.nextBtn.element.onclick=()=>{
       if(this.curentSong<this.playlist.length-1){
         this.curentSong++;
@@ -99,19 +103,19 @@ class Player{
         document.querySelector(`.song${this.curentSong}`).classList.add("played");
         this.prevSong=this.curentSong;
         this.song.src=this.playlist[this.curentSong].url;
-        this.isPlayed=true;
-        this.song.play();
+        this.isPlayed=false; // Костыль
+        this.play();
       }else {
         this.curentSong=0;
         document.querySelector(`.song${this.prevSong}`).classList.remove("played");
         document.querySelector(`.song${this.curentSong}`).classList.add("played");
         this.prevSong=this.curentSong;
         this.song.src=this.playlist[this.curentSong].url;
-        this.isPlayed=true;
-        this.song.play();
+        this.isPlayed=false; // Костыль
+        this.play();
       }
-      this.trackName.element.textContent=this.playlist[this.curentSong].name;
     }
+
     this.prevBtn.element.onclick=()=>{
       if(this.curentSong>0){
         this.curentSong--;
@@ -119,18 +123,17 @@ class Player{
         document.querySelector(`.song${this.curentSong}`).classList.add("played");
         this.prevSong=this.curentSong;
         this.song.src=this.playlist[this.curentSong].url;
-        this.isPlayed=true;
-        this.song.play();
+        this.isPlayed=false; // Костыль
+        this.play();
       }else {
         this.curentSong=this.playlist.length-1;
         document.querySelector(`.song${this.prevSong}`).classList.remove("played");
         document.querySelector(`.song${this.curentSong}`).classList.add("played");
         this.prevSong=this.curentSong;
         this.song.src=this.playlist[this.curentSong].url;
-        this.isPlayed=true;
-        this.song.play();
+        this.isPlayed=false; // Костыль
+        this.play();
       }
-      this.trackName.element.textContent=this.playlist[this.curentSong].name;
     }
 
     // Volume
@@ -146,8 +149,9 @@ class Player{
       this.progressDone.element.style.width=`${this.song.currentTime/this.song.duration*100}%`
       this.progressTime.element.textContent=`${Math.floor(this.song.currentTime/60)}:${Math.floor(this.song.currentTime%60)}/${Math.floor(this.song.duration/60)}:${Math.floor(this.song.duration%60)}`
     })
+    this.song.addEventListener('ended',()=>this.nextSong.call(this))
   }
-    // 
+  
 
   play(){
     if(!this.isPlayed){
@@ -155,8 +159,6 @@ class Player{
       this.isPlayed=true;
       this.playBtn.element.classList.remove('play');
       this.playBtn.element.classList.add('pause');
-      document.querySelector(`.song${this.prevSong}`).classList.remove("played");
-      document.querySelector(`.song${this.curentSong}`).classList.add("played");
     }else {
       this.song.pause();
       this.isPlayed=false;
@@ -178,6 +180,25 @@ class Player{
       this.muteBtn.element.classList.add('notMute');
     }
   
+  }
+  nextSong(){
+    if(this.curentSong<this.playlist.length-1){
+      this.curentSong++;
+      document.querySelector(`.song${this.prevSong}`).classList.remove("played");
+      document.querySelector(`.song${this.curentSong}`).classList.add("played");
+      this.prevSong=this.curentSong;
+      this.song.src=this.playlist[this.curentSong].url;
+      this.isPlayed=false; // Костыль
+      this.play();
+    }else {
+      this.curentSong=0;
+      document.querySelector(`.song${this.prevSong}`).classList.remove("played");
+      document.querySelector(`.song${this.curentSong}`).classList.add("played");
+      this.prevSong=this.curentSong;
+      this.song.src=this.playlist[this.curentSong].url;
+      this.isPlayed=false; // Костыль
+      this.play();
+    }
   }
 }
 

@@ -38,7 +38,7 @@
 }
 
 .play{
-  background-size: 40px 40px !important;
+  background-size: 40px 40px;
   background-image: url("../assets/svg/play.svg") !important;
   background-repeat: no-repeat;
   background-size: cover;
@@ -46,7 +46,7 @@
 }
 
 .pause{
-  background-size: 40px 40px !important;
+  background-size: 40px 40px ;
   background-image: url("../assets/svg/pause.svg") !important;
   background-repeat: no-repeat;
   background-size: cover;
@@ -119,4 +119,29 @@
 
 .played{
   color: red;
+}
+
+@media (max-width: 768px) {
+  .player{
+    width: 180px;
+  }
+  
+  .player__controls{
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .player__control{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+  .volume{
+    width: 70px;
+  }
+  .prev, .next, .play, .pause, .notMute, .mute{
+    background-size: 20px 20px;
+  }
+
+
 }
