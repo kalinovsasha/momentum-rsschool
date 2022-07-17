@@ -3,7 +3,6 @@ class Clock {
     this.lang=lang;
   }
   showTime() {
-    console.log(lang);
     const timeEl = document.querySelector(".time");
     const dateEl = document.querySelector(".date");
     const date = new Date();

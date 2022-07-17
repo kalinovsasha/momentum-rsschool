@@ -1,16 +1,10 @@
-#todo{
-  margin-left: 750px;
-  margin-top: 250px;
-}
-
 .todo{
   position: relative;
 }
 
 .todo-btn{
-  max-width: 60px;
+  max-width: 100px;
   border-radius: 6px;
-  border: 1px solid rgb(82, 92, 238);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -21,6 +15,8 @@
 .todo-btn__txt{
 font-weight: 700;
 font-size: 1rem;
+cursor: pointer;
+user-select: none;
 }
 
 .todo-list{
@@ -31,13 +27,14 @@ font-size: 1rem;
   left: -240px;
   bottom: 30px;
   width: 300px;
-  height: 100px;
+  height: 200px;
   border-radius: 6px;
-  border: 1px solid rgb(82, 92, 238);
+  border: 1px solid rgb(0, 0, 0);
+  background-color: rgba(24, 25, 26, 0.781);
   display:none;
   flex-direction: column;
   justify-content: flex-start;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .todo-list_visible{
@@ -63,7 +60,7 @@ font-size: 1rem;
 
 .todo-list__item__delete{
   width: 12px;
-  background-image: url(./delete.png);
+  background-image: url(../assets/img/delete.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -73,4 +70,16 @@ font-size: 1rem;
 .todosInput{
   margin:5px 5px 0 5px;
   width: 87%;
+}
+
+@media (max-width: 768px) {
+  .todo-list{
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo-list{
+    height: 100px;
+  }
 }

@@ -6,6 +6,7 @@ langSet.addEventListener("change", () => langChanger(langSet.value));
 const weather = new Weather("en");
 const clock = new Clock("en-En");
 const greeting = new Greeting("en");
+const todo = new Todo("todo");
 
 if (localStorage.getItem("lang")) {
   langSet.value = localStorage.getItem("lang");

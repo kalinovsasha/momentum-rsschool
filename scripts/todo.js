@@ -1,37 +1,39 @@
 class Todo {
   constructor(rootId) {
-    if (localStorage.getItem("todo")) {
-      this.todos = JSON.parse(localStorage.getItem("todo"));
-    } else {
-      this.todos = [{ name: "Говно", done: true }];
+    if(document.getElementById(rootId)){
+      if (localStorage.getItem("todo")) {
+        this.todos = JSON.parse(localStorage.getItem("todo"));
+      } else {
+        this.todos = [{ name: "Тест", done: true }];
+      }
+      this.isVisible = false;
+      this.root = new ElementCreator(document.getElementById(rootId), "div", [
+        "todo",
+      ]).element;
+      this.todoBtn = new ElementCreator(this.root, "div", ["todo-btn"]).element;
+      this.todoBtnTxt = new ElementCreator(
+        this.todoBtn,
+        "div",
+        ["todo-btn__txt"],
+        "TODOList"
+      ).element;
+      this.ulContainer = new ElementCreator(this.root, "ul", [
+        "todo-list",
+      ]).element;
+      if (this.todos.length > 0) {
+        this.render();
+      }
+      this.todoBtn.onclick = () => {
+        this.isVisible = !this.isVisible;
+        this.ulContainer.classList.toggle("todo-list_visible");
+      };  
     }
-    this.isVisible = false;
-    this.root = new ElementCreator(document.getElementById(rootId), "div", [
-      "todo",
-    ]).element;
-    this.todoBtn = new ElementCreator(this.root, "div", ["todo-btn"]).element;
-    this.todoBtnTxt = new ElementCreator(
-      this.todoBtn,
-      "div",
-      ["todo-btn__txt"],
-      "ToDO"
-    ).element;
-    this.ulContainer = new ElementCreator(this.root, "ul", [
-      "todo-list",
-    ]).element;
-    if (this.todos.length > 0) {
-      this.render();
-    }
-    this.todoBtn.onclick = () => {
-      this.isVisible = !this.isVisible;
-      this.ulContainer.classList.toggle("todo-list_visible");
-    };
   }
 
   render() {
     const input = new ElementCreator(this.ulContainer, "input", ["todosInput"])
       .element;
-    input.setAttribute("placeholder", "Добавить");
+    input.setAttribute("placeholder", "Добавить [enter]");
     input.addEventListener("blur", () => {
       this.todos.push({ name: input.value, done: false });
       localStorage.setItem("todo", JSON.stringify(this.todos));
@@ -80,23 +82,3 @@ class Todo {
   }
 }
 
-class ElementCreator {
-  constructor(parent, tag = "div,", styles, content = "") {
-    this.parent = parent;
-    this.tag = tag;
-    this.styles = styles;
-    this.content = content;
-    this.element = document.createElement(`${tag}`);
-    if (this.styles !== null) {
-      this.element.classList.add(...this.styles);
-    }
-    this.element.innerText = this.content;
-    if (parent !== null) {
-      this.parent.append(this.element);
-    } else {
-      document.body.append(this.element);
-    }
-  }
-}
-
-const todo = new Todo("todo");

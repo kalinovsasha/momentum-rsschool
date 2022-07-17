@@ -1,7 +1,7 @@
 slider = {
   baseUrl:
     "https://raw.githubusercontent.com/kalinovsasha/rss-momentum-assets/master/images/",
-  timeOfDay: ["morning", "day", "evening", "night"],
+  timeOfDay: ["morning", "afternoon", "evening", "night"],
   rnd: 01,
 
   setBg() {
