@@ -1,6 +1,6 @@
 slider = {
   baseUrl:
-    "https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/",
+    "https://raw.githubusercontent.com/kalinovsasha/rss-momentum-assets/master/images/",
   timeOfDay: ["morning", "day", "evening", "night"],
   rnd: 01,
 

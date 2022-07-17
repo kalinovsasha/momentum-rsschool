@@ -10,7 +10,6 @@ let quotes = {
       .then((res) => res.json())
       .then((data) => {
         this.dbQuotes = data;
-        //console.log(this.dbQuotes);
         this.viewQuotes();
       });
   },

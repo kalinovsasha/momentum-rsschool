@@ -10,6 +10,8 @@ const greeting = new Greeting("en");
 if (localStorage.getItem("lang")) {
   langSet.value = localStorage.getItem("lang");
   langChanger(localStorage.getItem("lang"));
+}else{
+  langChanger('en')
 }
 
 greeting.greeting();

@@ -66,7 +66,7 @@ class Weather {
     const city = document.querySelector(".city");
     if (localStorage.getItem("city")) {
       city.value = localStorage.getItem("city");
-      this.city=city.value;
+      this.city=localStorage.getItem("city");
       this.getWeather();
     } else {
       this.city="Минск";
