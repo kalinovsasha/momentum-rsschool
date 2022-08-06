@@ -53,7 +53,7 @@ class Greeting {
         greetingText.innerHTML = `Доброй ${timeOfDayRu[3]}`;
       }
     }
-    setTimeout(() => greeting(this.lang), 10000);
+    setTimeout(() => this.greeting(this.lang), 10000);
   }
   setLang(lang){
     this.lang=lang;

@@ -9,16 +9,16 @@ slider = {
     const hours = date.getHours();
     const img = new Image();
     this.rnd = this.rnd < 10 ? "0" + this.rnd.toString() : this.rnd;
-    if (hours >= 5 && hours < 13) {
+    if (hours >= 6 && hours < 12) {
       img.src = `${this.baseUrl}/${this.timeOfDay[0]}/${this.rnd}.jpg`;
     }
-    if (hours >= 13 && hours < 19) {
+    if (hours >= 12 && hours < 18) {
       img.src = `${this.baseUrl}/${this.timeOfDay[1]}/${this.rnd}.jpg`;
     }
-    if (hours >= 19) {
+    if (hours >= 18) {
       img.src = `${this.baseUrl}/${this.timeOfDay[2]}/${this.rnd}.jpg`;
     }
-    if (hours >= 00 && hours < 5) {
+    if (hours >= 00 && hours < 6) {
       img.src = `${this.baseUrl}/${this.timeOfDay[3]}/${this.rnd}.jpg`;
     }
 

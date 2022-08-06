@@ -1,6 +1,6 @@
 class Todo {
   constructor(rootId) {
-    if(document.getElementById(rootId)){
+    if (document.getElementById(rootId)) {
       if (localStorage.getItem("todo")) {
         this.todos = JSON.parse(localStorage.getItem("todo"));
       } else {
@@ -20,13 +20,11 @@ class Todo {
       this.ulContainer = new ElementCreator(this.root, "ul", [
         "todo-list",
       ]).element;
-      if (this.todos.length > 0) {
-        this.render();
-      }
+      this.render();
       this.todoBtn.onclick = () => {
         this.isVisible = !this.isVisible;
         this.ulContainer.classList.toggle("todo-list_visible");
-      };  
+      };
     }
   }
 
@@ -68,17 +66,18 @@ class Todo {
       };
       todo.append(div);
       todo.onclick = () => {
-        if (!this.todos[i].done) {
+        if (this.todos[i] != undefined && !this.todos[i].done) {
           this.todos[i].done = !this.todos[i].done;
           todo.classList.add("todo-list__item_done");
           localStorage.setItem("todo", JSON.stringify(this.todos));
         } else {
-          this.todos[i].done = !this.todos[i].done;
-          todo.classList.remove("todo-list__item_done");
-          localStorage.setItem("todo", JSON.stringify(this.todos));
+          if (this.todos[i] != undefined) {
+            this.todos[i].done = !this.todos[i].done;
+            todo.classList.remove("todo-list__item_done");
+            localStorage.setItem("todo", JSON.stringify(this.todos));
+          }
         }
       };
     }
   }
 }
-

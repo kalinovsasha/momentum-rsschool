@@ -31,16 +31,14 @@ user-select: none;
   border-radius: 6px;
   border: 1px solid rgb(0, 0, 0);
   background-color: rgba(24, 25, 26, 0.781);
-  display:none;
+  display:flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: scroll;
 }
 
 .todo-list_visible{
-  display:flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  display: none;
 }
 
 .todo-list__item{
